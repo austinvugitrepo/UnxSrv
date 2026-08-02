@@ -15,6 +15,12 @@ main(void)
 		err(1, "socket call failed.");
 
 	(void)memset(&uaddr, 0, sizeof(uaddr));
+	uaddr.sun_family = AF_UNIX;
+	uaddr.sun_path = "/var/run/unxsrv.sock"
+	if (bind(sfd, (struct sockaddr *)&uaddr, sizeof(uaddr)) == -1)
+		err(1, "bind call failed.");
+	if (listen(sfd, 1) == -1)
+		err(1, "listen call failed.");
 
 	return 0;
 
